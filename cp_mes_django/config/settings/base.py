@@ -13,6 +13,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 # =============================================================================
 
 DJANGO_APPS = [
+    'django.contrib.admin',
     'django.contrib.contenttypes',
     'django.contrib.auth',
     'django.contrib.sessions',
@@ -36,7 +37,6 @@ LOCAL_APPS = [
     'apps.inventory',
     'apps.report',
     'apps.monitor',
-    'tenants',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -106,7 +106,7 @@ SIMPLE_JWT = {
 # =============================================================================
 
 AUTHENTICATION_BACKENDS = [
-    'apps.core.authentication.backend.JWTAuthenticationBackend',
+    'apps.core.authentication.JWTAuthenticationBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
 
@@ -134,6 +134,26 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+# =============================================================================
+# Templates Configuration
+# =============================================================================
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [BASE_DIR / 'templates'],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
 
 # =============================================================================
 # Default Auto Field
